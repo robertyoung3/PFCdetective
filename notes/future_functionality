@@ -1,0 +1,9 @@
+future functionality:
+
+1) functions to compute the CF2 Kendrick mass defect (KMD) and cluster masses with similar KMDs
+
+2) functions to graphically represent the clustering results
+
+3) functions to compare detected masses to known compounds in the Norman Network PFC list
+
+4) functions to clean up the Norman Network PFC list (e.g., to remove duplicates and salts and to segregate ionic compounds)

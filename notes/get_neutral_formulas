@@ -1,0 +1,3 @@
+may need to change default range in get_monoisotopic. query Norman network list for this purpose.
+
+may also need to create a function to toss out questionable elemental compositions

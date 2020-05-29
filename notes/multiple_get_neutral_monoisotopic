@@ -1,0 +1,13 @@
+alternative for a named vector:
+
+multiple_get_neutral_monoisotopic <- function(formulas) {
+  rlang::set_names(purrr::map_dbl(formulas, get_neutral_monoisotopic),
+                   formulas)
+}
+
+alternative for a tibble/dataframe:
+
+multiple_get_neutral_monoisotopic <- function(formulas) {
+  tibble::tibble(formula = formulas,
+                 mass = purrr::map_dbl(formulas, get_neutral_monoisotopic))
+}

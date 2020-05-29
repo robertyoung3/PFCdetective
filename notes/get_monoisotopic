@@ -1,0 +1,7 @@
+#' The following examples are not working through readlines, but are working directly on the website:
+
+#' formula = "C27H40O[2H]6"    ## d6-cholesterol; fails to open connection with "[2H]"
+#' get_monoisotopic(formula)
+#'
+#' formula = "[13C]2C25H46O"   ## 13C2-cholesterol; fails to open connection with "[13C]"
+#' get_monoisotopic(formula)

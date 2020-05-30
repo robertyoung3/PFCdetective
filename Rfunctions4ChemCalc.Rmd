@@ -2,10 +2,7 @@
 title: "R Functions for ChemCalc Website"
 author: "Robert B. Young"
 date: "5/24/2020"
-output:
-  pdf_document: default
-  word_document: default
-  html_document: default
+output: html_notebook
 ---
 
 ```{r setup, include=FALSE}
@@ -48,14 +45,14 @@ The functions are saved in an R package called "PFCdetective", which will ultima
 A molecular formula can be converted to its neutral monoisotopic mass using the get_neutral_monoisotopic() function.
 
 ```{r get_neutral_monoisotopic}
-formula <- "C8HF15O2"           ## perfluorooctanoic acid (PFOA)
+formula <- "C8HF15O2"                  ## perfluorooctanoic acid (PFOA)
 get_neutral_monoisotopic(formula)
 ```
 
 In addition, the get_neutral_monoisotopic() function is robust to formatting differences.
 
 ```{r}
-formula <- "H1 O2 F15 C8"       ## PFOA in disarray
+formula <- "H1 O2 F15 C8"              ## PFOA in disarray
 get_neutral_monoisotopic(formula)
 ```
 
@@ -65,7 +62,7 @@ get_neutral_monoisotopic(formula)
 The get_neutral_monoisotopic() and add_proton() functions can be combined to compute a protonated monoisotopic mass.
 
 ```{r}
-formula <- "C8HF15O2"           ## PFOA
+formula <- "C8HF15O2"                  ## PFOA
 formula %>%
   get_neutral_monoisotopic() %>%
   add_proton()
@@ -77,7 +74,7 @@ formula %>%
 To get a deprotonated monoisotopic mass, the get_neutral_monoisotopic() function can be combined, instead, with the subtract_proton() function.
 
 ```{r}
-formula <- "C8HF15O2"           ## PFOA
+formula <- "C8HF15O2"                  ## PFOA
 formula %>%
   get_neutral_monoisotopic() %>%
   subtract_proton()
@@ -89,7 +86,7 @@ formula %>%
 The multiple_get_neutral_monoisotopic() function can be used to generate a group of monoisotopic masses from their respective molecular formulas.
 
 ```{r multiple_get_neutral_monoisotopic}
-formulas <- c("C8HF15O2",       ##  PFOA
+formulas <- c("C8HF15O2",              ##  PFOA
               "C9H7F9O2",
               "C13H7F17O2")
 multiple_get_neutral_monoisotopic(formulas)
@@ -101,7 +98,7 @@ multiple_get_neutral_monoisotopic(formulas)
 The multiple_get_neutral_monoisotopic() and add_proton() functions can be combined to compute the protonated monoisotopic masses of a group of molecular formulas.
 
 ```{r}
-formulas <- c("C8HF15O2",       ## PFOA
+formulas <- c("C8HF15O2",              ## PFOA
               "C9H7F9O2",
               "C13H7F17O2")
 formulas %>%
@@ -115,7 +112,7 @@ formulas %>%
 In a similar way, the multiple_get_neutral_monoisotopic() and subtract_proton() functions can be combined to compute the deprotonated monoisotopic mass of a group of molecular formulas.
 
 ```{r}
-formulas <- c("C8HF15O2",        ## PFOA
+formulas <- c("C8HF15O2",              ## PFOA
               "C9H7F9O2",
               "C13H7F17O2")
 formulas %>%
@@ -133,14 +130,14 @@ formulas %>%
 A neutral experimental monoisotopic mass can be used to generate a group of possible elemental compositions using the get_neutral_formulas() function.
 
 ```{r get_neutral_formulas}
-neutral_mass <- 413.9735       ## PFOA with small error
+neutral_mass <- 413.9735               ## PFOA with small error
 get_neutral_formulas(neutral_mass)
 ```
 
 The get_neutral_formulas() function also allows users to specify the number of elemental compositions to return with the "num_formulas" parameter (default = 10), and to specify the expected range of elemental compositions with the "mfRange" parameter (default = "C3-50 H0-100 O0-10 F2-30"). In the following example, more restrictive limits on both the number of elemental compositions (num_formulas = 5) and the expected range of elemental compositions (mfRange = "C3-10 H0-20 O0-5 F2-30") influence the elemental compositions that are returned.
 
 ```{r}
-neutral_mass <- 413.9735       ## PFOA with small error
+neutral_mass <- 413.9735               ## PFOA with small error
 get_neutral_formulas(neutral_mass, num_formulas = 5, mfRange = "C3-15 H0-20 O0-5 F2-30")
 ```
 
@@ -150,7 +147,7 @@ get_neutral_formulas(neutral_mass, num_formulas = 5, mfRange = "C3-15 H0-20 O0-5
 A protonated monoisotopic mass (e.g., a m/z value detected by ESI+ high resolution mass spectrometery) can be used to generate a series of possible elemental compositions by using the subtract_proton() and get_neutral_formulas() functions together.
 
 ```{r}
-mz <- 414.9808                 ## protonated PFOA with small error
+mz <- 414.9808                         ## protonated PFOA with small error
 mz %>% 
   subtract_proton() %>% 
   get_neutral_formulas(num_formulas = 5, mfRange = "C3-15 H0-20 O0-5 F2-30")
@@ -162,7 +159,7 @@ mz %>%
 A deprotonated monoisotopic mass (e.g., a m/z value detected by ESI- high resolution mass spectrometery) can be used to generate a series of possible elemental compositions by using the add_proton() and get_neutral_formulas() functions together.
 
 ```{r}
-mz <- 412.9664                 ## deprotonated PFOA with small error
+mz <- 412.9664                         ## deprotonated PFOA with small error
 mz %>% 
   add_proton() %>% 
   get_neutral_formulas(num_formulas = 5, mfRange = "C3-15 H0-20 O0-5 F2-30")
@@ -174,7 +171,7 @@ mz %>%
 The multiple_get_neutral_formulas function uses the get_neutral_formulas function (described above) to convert a group of neutral monoisotopic masses to a list of their respective elemental compositions, where each list element is named by the associated monoisotopic mass. Each list element can be displayed or accessed for any other purpose using its name.
 
 ```{r multiple_get_neutral_formulas}
-neutral_masses <- c(413.9735,         ## deprotonated C8HF15O2 (PFOA) with small error
+neutral_masses <- c(413.9735,          ## deprotonated C8HF15O2 (PFOA) with small error
                     318.0301,          ## deprotonated C9H7F9O2 with small error
                     518.0175)          ## deprotonated C13H7F17O2 with small error 
 neutral_mass_list <- multiple_get_neutral_formulas(neutral_masses, num_formulas = 5, mfRange = "C3-15 H0-20 O0-5 F2-30")
@@ -195,9 +192,9 @@ neutral_mass_list[["518.0175"]]
 A group of protonoted monoisotopic masses can be used to generate a list of their respective elemental compositions by using the subtract_proton() and multiple_get_neutral_formulas() functions together.
 
 ```{r}
-mzs <- c(414.9808,          ## protonated C8HF15O2 (PFOA) with small error
-         319.0374,          ## protonated C9H7F9O2 with small error
-         519.0248)          ## protonated C13H7F17O2 with small error 
+mzs <- c(414.9808,                     ## protonated C8HF15O2 (PFOA) with small error
+         319.0374,                     ## protonated C9H7F9O2 with small error
+         519.0248)                     ## protonated C13H7F17O2 with small error 
 protonated_mass_list <- mzs %>%
   purrr::map(subtract_proton) %>%
   multiple_get_neutral_formulas(num_formulas = 5, mfRange = "C3-15 H0-20 O0-5 F2-30")
@@ -217,9 +214,9 @@ protonated_mass_list["414.9808"]
 Similarly, a group of deprotonoted monoisotopic masses can be used to generate a list of their respective elemental compositions by using the add_proton() and multiple_get_neutral_formulas() functions together.
 
 ```{r}
-mzs <- c(412.9662,          ## protonated C8HF15O2 (PFOA) with small error
-         317.0228,          ## protonated C9H7F9O2 with small error
-         517.0102)          ## protonated C13H7F17O2 with small error 
+mzs <- c(412.9662,                     ## protonated C8HF15O2 (PFOA) with small error
+         317.0228,                     ## protonated C9H7F9O2 with small error
+         517.0102)                     ## protonated C13H7F17O2 with small error 
 deprotonated_mass_list <- mzs %>%
   purrr::map(add_proton) %>%
   multiple_get_neutral_formulas(num_formulas = 5, mfRange = "C3-15 H0-20 O0-5 F2-30")

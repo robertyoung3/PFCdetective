@@ -1,6 +1,6 @@
 Package: PFCdetective
 Type: Package
-Title: Utilities for analyzing mass spectrometry data for perfluorinated compounds (PFCs)
+Title: Utilities for Analyzing Mass Spectrometry Data for Perfluorinated Compounds (PFCs)
 Version: 0.1.0
 Author: Robert B. Young
 Maintainer: Robert B. Young <robertyoung3@gmail.com>
